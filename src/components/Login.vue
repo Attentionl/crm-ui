@@ -30,8 +30,8 @@ export default {
   data () {
     return {
       loginForm: {
-        username: '',
-        password: ''
+        username: 'admin',
+        password: '123456'
       },
       // 这是表单的验证规则对象
       loginFormRules: {
@@ -54,12 +54,13 @@ export default {
     },
     login () {
       this.$refs.loginFormRef.validate(async (valid) => {
-        // console.log(valid)
+        console.log(valid)
         if (!valid) {}
         const { data: res } = await this.$http.post('login', this.loginForm)
         if (res.meta.status !== 200) return this.$message.error('登录失败')
         this.$message.success('登录成功')
         // 将后台服务器发送过来的token保存到客户端的sessionStorage中
+        console.log(res.data)
         window.sessionStorage.setItem('token', res.data.token)
         // 通过编程式导航跳转到主页面
         this.$router.push('/home')
